@@ -1,7 +1,7 @@
 import sys, pygame
 pygame.init()
 
-size = width, height = 1080, 760
+size = width, height = 1080, 768
 black = 0, 0, 0
 
 screen = pygame.display.set_mode(size)
@@ -33,7 +33,8 @@ towerrect = tower.get_rect()
 towerrect.y = 350
 tower_vis = False
 
-
+ground_clr = 2, 188, 15
+skye_clr = 2, 74, 195
 alive = True
 
 while 1:
@@ -52,11 +53,14 @@ while 1:
 
     if not alive:
         continue
+    
     screen.fill(black)
-    screen.blit(castle, castlerect)
+    pygame.draw.rect(screen, ground_clr,pygame.Rect(0, 350, 1080, 420))
+    pygame.draw.rect(screen, skye_clr,pygame.Rect(0, 0, 1080, 450))
+    
 
-    if tower_vis == True:
-        screen.blit(tower,towerrect)
+    screen.blit(castle, castlerect)
+   
 
     mobs_list = [mobrect, fastrect]
     collision = pygame.Rect.collidelist(castlerect, mobs_list)
@@ -73,7 +77,8 @@ while 1:
         
         screen.blit(explosion, explosionrect)
         alive = False
-
-   
-   
+    
+    if tower_vis == True:
+        screen.blit(tower,towerrect)
+    
     pygame.display.flip()

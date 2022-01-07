@@ -28,16 +28,35 @@ explosionrect = explosion.get_rect()
 explosionrect.x = 500
 explosionrect.y = 350
 
+tower = pygame.image.load("tower.png")
+towerrect = tower.get_rect()
+towerrect.y = 350
+tower_vis = False
+
+
 alive = True
 
 while 1:
     for event in pygame.event.get():
-        if event.type == pygame.QUIT: sys.exit()
+        if event.type == pygame.QUIT:
+            sys.exit()
+
+        if event.type == pygame.MOUSEBUTTONUP:
+            # pos = [234, 500]
+            pos = pygame.mouse.get_pos()
+            towerrect.x = pos[0]
+            tower_vis = True
+        
+
+    
+
     if not alive:
         continue
     screen.fill(black)
     screen.blit(castle, castlerect)
 
+    if tower_vis == True:
+        screen.blit(tower,towerrect)
 
     mobs_list = [mobrect, fastrect]
     collision = pygame.Rect.collidelist(castlerect, mobs_list)
@@ -46,7 +65,7 @@ while 1:
 
         
         mobrect = mobrect.move([1, 0])
-        fastrect = fastrect.move([-2, 0])
+        fastrect = fastrect.move([-1, 0])
         screen.blit(mob, mobrect)
         screen.blit(fast,fastrect)
         

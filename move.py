@@ -1,27 +1,33 @@
-def move(x, speed, target_x):
-    for i in range(speed):
-        if x < target_x:
-            x = x + 1
-        elif x > target_x:
-            x = x - 1
-        if x == target_x:
-           return target_x
+class Mob:
+    def __init__(self, x, speed):
+        self.x = x
+        self.speed = speed
 
-    return x 
+    def move(self, target_x):
+        for i in range(self.speed):
+            if self.x < target_x:
+                self.x = self.x + 1
+            elif self.x > target_x:
+                self.x = self.x - 1
+                if self.x == target_x:
+                    break
 
-##########
+class NormalMob(Mob):
+    def __init__(self, x):
+        super().__init__(x, speed=3)
 
-normal_x = 0  
-normal_speed = 3
 
-fast_x = 40
-fast_speed = 6
+class FastMob(Mob):
+    def __init__(self, x):
+        super().__init__(x, speed=6)
+
+normal = NormalMob(x=0)
+fast = FastMob(x=40)
 
 target_x = 20
 for _ in range(16):
-    normal_x = move(normal_x, normal_speed, target_x)
-    fast_x = move(fast_x, fast_speed, target_x)
-    print("normal: "+str(normal_x))
-    print("fast: "+str(fast_x))
+    normal.move(target_x)
+    fast.move(target_x)
+    print("normal: "+str(normal.x))
+    print("fast: "+str(fast.x))
     print()
-
